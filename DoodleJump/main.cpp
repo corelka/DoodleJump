@@ -17,6 +17,7 @@ using namespace gui;
 //guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!", rect<int>(10, 10, 200, 22), true);//pattern for text!
 
 f32 g = -0.1;
+
 int main(int argc, char** argv)
 {
 	IrrlichtDevice *device =
@@ -96,10 +97,6 @@ int main(int argc, char** argv)
 	
 	ITexture *back_tex = driver->getTexture("../models_obj/background.png");
 	ITexture *calc_back = ResizeTexture(back_tex, driver, driver->getScreenSize().Width, driver->getScreenSize().Height);
-	
-	//ISceneNodeAnimator *anim = smgr->createCollisionResponseAnimator()
-	
-
 
 	while (device->run())
 	if (device->isWindowActive())
