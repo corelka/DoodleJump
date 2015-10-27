@@ -26,6 +26,9 @@ int main(int argc, char** argv)
 	ISceneManager* smgr = device->getSceneManager();
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
 	
+	KeyReceiver NewRec;
+	device->setEventReceiver(&NewRec);
+
 	IAnimatedMeshSceneNode* hero = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../models_obj/knight.x"));
 	if (hero)
 	{
@@ -67,13 +70,26 @@ int main(int argc, char** argv)
 	ICameraSceneNode *camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 20), vector3df(0,0,0));
 	
 	ITexture *back_tex = driver->getTexture("../models_obj/background.png");
-	ITexture *calc_back = txt(back_tex, driver, driver->getScreenSize().Width, driver->getScreenSize().Height);
+	ITexture *calc_back = ResizeTexture(back_tex, driver, driver->getScreenSize().Width, driver->getScreenSize().Height);
 	
 	while (device->run())
 	{
 		driver->beginScene(true, true, SColor(0, 200, 200, 200));
 		driver->draw2DImage(calc_back, position2d < s32 >(0, 0), rect < s32 >(0, 0, driver->getScreenSize().Width, driver->getScreenSize().Height), 0, SColor(255, 255, 255, 255), true);
 		smgr->drawAll();
+
+		if (NewRec.IsKeyDown(KEY_LEFT))
+		{
+			hero->setPosition(hero->getPosition()+vector3df(0.1,0,0));
+			hero->setRotation(vector3df(90, -20, 180));
+		}
+
+		if (NewRec.IsKeyDown(KEY_LEFT))
+		{
+			hero->setPosition(hero->getPosition() + vector3df(0.1, 0, 0));
+			hero->setRotation(vector3df(90, -20, 180));
+		}
+
 		guienv->drawAll();
 		driver->endScene();
 	}
@@ -81,4 +97,3 @@ int main(int argc, char** argv)
 
 	return 0;
 }
-
