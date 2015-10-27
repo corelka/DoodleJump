@@ -14,6 +14,11 @@ video::ITexture* ResizeTexture(ITexture* txt, IVideoDriver* drv, int newX, int n
 	{
 		if (event.EventType == irr::EET_KEY_INPUT_EVENT)
 			KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+		
+		if (event.EventType == irr::EET_KEY_INPUT_EVENT && !event.KeyInput.PressedDown)
+		{
+			hero->setRotation(vector3df(hero->getRotation().X, 0, hero->getRotation().Z));
+		}
 		return false;
 	}
 
@@ -22,7 +27,7 @@ video::ITexture* ResizeTexture(ITexture* txt, IVideoDriver* drv, int newX, int n
 		return KeyIsDown[keyCode];
 	}
 
-	KeyReceiver::KeyReceiver()
+	KeyReceiver::KeyReceiver(IAnimatedMeshSceneNode* node) :hero(node)
 	{
 		for (u32 i = 0; i<KEY_KEY_CODES_COUNT; ++i)
 			KeyIsDown[i] = false;

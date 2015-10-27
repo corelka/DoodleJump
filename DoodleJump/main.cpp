@@ -26,8 +26,7 @@ int main(int argc, char** argv)
 	ISceneManager* smgr = device->getSceneManager();
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
 	
-	KeyReceiver NewRec;
-	device->setEventReceiver(&NewRec);
+	
 
 	IAnimatedMeshSceneNode* hero = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../models_obj/knight.x"));
 	if (hero)
@@ -39,6 +38,9 @@ int main(int argc, char** argv)
 										//hero->setFrameLoop(0, 14);
 										//hero->setAnimationSpeed(15);
 	}
+
+	KeyReceiver NewRec(hero);
+	device->setEventReceiver(&NewRec);
 	
 	IAnimatedMeshSceneNode* block = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../models_obj/platform01.x"));
 	if (block)
@@ -84,10 +86,10 @@ int main(int argc, char** argv)
 			hero->setRotation(vector3df(90, -20, 180));
 		}
 
-		if (NewRec.IsKeyDown(KEY_LEFT))
+		if (NewRec.IsKeyDown(KEY_RIGHT))
 		{
-			hero->setPosition(hero->getPosition() + vector3df(0.1, 0, 0));
-			hero->setRotation(vector3df(90, -20, 180));
+			hero->setPosition(hero->getPosition() + vector3df(-0.1, 0, 0));
+			hero->setRotation(vector3df(90, 20, 180));
 		}
 
 		guienv->drawAll();
